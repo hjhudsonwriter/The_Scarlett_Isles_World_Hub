@@ -27,6 +27,9 @@
       <button id="downloadSaveBtn" class="btn">Download Save (JSON)</button>
       <button id="importSaveBtn" class="btn">Import Save (JSON)</button>
       <input id="importFileInput" type="file" accept="application/json" style="display:none" />
+      <label class="btn" for="bastionMapUpload">Upload Bastion Image</label>
+      <input id="bastionMapUpload" type="file" accept="image/*" style="display:none" />
+      <button id="clearBastionMapBtn" class="btn btn--ghost" type="button">Reset Bastion Image</button>
 
     </div>
   </header>
@@ -165,7 +168,7 @@
   <div id="bastionMapOverlays" class="bastionMapOverlays"></div>
 </div>
         <div class="mapHint">
-          Tip: This tool saves automatically in your browser (local storage). Each player can have their own copy.
+          Tip: This tool saves automatically in your browser (local storage). Each player can have their own copy. You can now upload a custom bastion image directly in the app without adding it to the repo.
         </div>
       </section>
     </section>
