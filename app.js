@@ -517,7 +517,7 @@ function explorerDefaultState() {
     },
 
 
-       fog: {
+    fog: {
   enabled: false,
   // revealedByMapKey: { [mapKey]: { "q,r": true, ... } }
   revealedByMapKey: {}
@@ -686,9 +686,6 @@ function copyText(txt){
 
         <span class="muted">• Effects:</span>
         <span id="explorerEffects">—</span>
-
-        <span class="muted">• Gold:</span>
-        <strong id="explorerGold">0</strong>
 
         <span class="muted">•</span>
         <span id="explorerNotice" class="tiny" style="opacity:.9"></span>
@@ -872,32 +869,13 @@ const mkMedia = root.querySelector("#mkMedia");
   function applyOutcome(outcome){
   if(!outcome) return;
 
-  // Safe state bucket
-  if(!state.trackers || typeof state.trackers !== "object"){
-    state.trackers = { gold: 0, log: [] };
+  const parts = [];
+  if (outcome.note && String(outcome.note).trim()) parts.push(String(outcome.note).trim());
+  if (outcome.text && String(outcome.text).trim()) parts.push(String(outcome.text).trim());
+
+  if (parts.length) {
+    setNotice(parts.join(" • "));
   }
-  if(!Number.isFinite(state.trackers.gold)) state.trackers.gold = 0;
-  if(!Array.isArray(state.trackers.log)) state.trackers.log = [];
-
-  // Numbers
-  if(Number.isFinite(outcome.gold)) state.trackers.gold += outcome.gold;
-
-  // Log / note
-  const note = outcome.note ? String(outcome.note) : "";
-  if(note.trim()){
-    const stamp = `Day ${Number(state.travel?.day)||1}`;
-    state.trackers.log.unshift(`${stamp}: ${note.trim()}`);
-  }
-
-  // Show a visible outcome summary (so it doesn't feel like nothing happened)
-const parts = [];
-if (Number.isFinite(outcome.gold) && outcome.gold !== 0) parts.push(`${outcome.gold > 0 ? "+" : ""}${outcome.gold} gold`);
-if (Number.isFinite(outcome.rations) && outcome.rations !== 0) parts.push(`${outcome.rations > 0 ? "+" : ""}${outcome.rations} rations`);
-if (outcome.note && String(outcome.note).trim()) parts.push(String(outcome.note).trim());
-
-if (parts.length) {
-  setNotice(`Outcome: ${parts.join(" • ")}`);
-}
   saveNow();
 }
 
@@ -1165,593 +1143,25 @@ Enter the final table roll result below to resolve the weather’s effect.`,
 }
 
     function openMarkerModal(marker){
-  if(!mkModal) return;
-
-  mkMeta.textContent = "Location";
-  mkTitle.textContent = marker?.label || "Location";
-  mkDesc.textContent = marker?.description ? String(marker.description) : "";
-
-  const img = marker?.submapImage ? String(marker.submapImage) : "";
-  if (mkMedia) {
-    mkMedia.innerHTML = img ? `<img src="${withBase(img)}" alt="">` : "";
-  }
-
-  mkModal.classList.add("isOpen");
-  mkModal.setAttribute("aria-hidden", "false");
-}
-
-function closeMarkerModal(){
-  if(!mkModal) return;
-  mkModal.classList.remove("isOpen");
-  mkModal.setAttribute("aria-hidden", "true");
-}
-
-// Close modal
-evClose?.addEventListener("click", closeEventModal);
-evBackdrop?.addEventListener("click", closeEventModal);
-mkClose?.addEventListener("click", closeMarkerModal);
-mkBackdrop?.addEventListener("click", closeMarkerModal);    
-
-
-  const btnTokSm = root.querySelector("#explorerTokSm");
-  const btnTokLg = root.querySelector("#explorerTokLg");
-  const btnGroup = root.querySelector("#explorerGroup");
-  const btnUngroup = root.querySelector("#explorerUngroup");
-
-
-  const stage = root.querySelector("#explorerStage");
-  const fsWrap = root.querySelector("#explorerFsWrap");
-  const world = root.querySelector("#explorerWorld");
-  const mapImg = root.querySelector("#explorerMap");
-   const btnPickXY = root.querySelector("#explorerPickXY");
-let pickXYEnabled = false;
-    const markerLayer = root.querySelector("#explorerMarkers");
-  const gridCanvas = root.querySelector("#explorerGrid");
-  const tokenLayer = root.querySelector("#explorerTokens");
-  tokenLayer.style.touchAction = "none";
-stage.style.touchAction = "none";
-    const weatherVideo = root.querySelector("#explorerWeatherVideo");
-  const marquee = root.querySelector("#explorerMarquee");
-    const fogCanvas = root.querySelector("#explorerFog");
-const btnFogToggle = root.querySelector("#explorerFogToggle");
-    const btnFogReset = root.querySelector("#explorerFogReset");
-
-
-  // Load state (merge defaults)
-  const saved = explorerLoad();
-  const state = explorerDefaultState();
-
-
-  if (typeof saved.mapSrc === "string") state.mapSrc = saved.mapSrc;
-  if (typeof saved.mapPresetId === "string") state.mapPresetId = saved.mapPresetId;
-  if (typeof saved.mapDataUrl === "string") state.mapDataUrl = saved.mapDataUrl;
-  if (saved.grid) state.grid = { ...state.grid, ...saved.grid };
-  if (saved.snap) state.snap = { ...state.snap, ...saved.snap };
-    if (typeof saved.freeMove === "boolean") state.freeMove = saved.freeMove;
-if (saved.travel) state.travel = { ...state.travel, ...saved.travel };
-    if (saved.fog) state.fog = { ...state.fog, ...saved.fog };
-  if (saved.campaign) state.campaign = { ...state.campaign, ...saved.campaign };
-  if (saved.tokensByMap && typeof saved.tokensByMap === "object") state.tokensByMap = saved.tokensByMap;
-  if (saved.submap && typeof saved.submap === "object") state.submap = saved.submap;
-
-  if (Array.isArray(saved.tokens)) {
-  // merge by id, keep defaults for any missing heroes
-  const byId = new Map(saved.tokens.map(t => [t.id, t]));
-  state.tokens = state.tokens.map(t => {
-    const prev = byId.get(t.id);
-    if (!prev) return t;
-    return {
-      ...t,
-      x: Number.isFinite(prev.x) ? prev.x : t.x,
-      y: Number.isFinite(prev.y) ? prev.y : t.y,
-      size: Number.isFinite(prev.size) ? prev.size : t.size,
-      groupId: prev.groupId || null,
-      axial: prev.axial && Number.isFinite(prev.axial.q) && Number.isFinite(prev.axial.r)
-        ? { q: prev.axial.q, r: prev.axial.r }
-        : null
-    };
-  });
-}
-
-
-
-
-  // -------------------------------
-  // World Hub helpers (party, submaps, encounters, bastion flow)
-  // -------------------------------
-  function hubUid(){
-    return Math.random().toString(16).slice(2) + Date.now().toString(16);
-  }
-  function hubEscapeHtml(str){
-    return String(str ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-  function deepClone(obj){
-    return JSON.parse(JSON.stringify(obj));
-  }
-  function encounterTier(level){
-    const n = Number(level) || 1;
-    if (n <= 4) return 1;
-    if (n <= 8) return 2;
-    if (n <= 12) return 3;
-    return 4;
-  }
-  function currentMapKey(){
-    return state.submap ? `submap:${state.submap.id}` : (state.mapPresetId || "uploaded_map");
-  }
-  function saveTokensForCurrentMap(){
-    if (!state.tokensByMap || typeof state.tokensByMap !== "object") state.tokensByMap = {};
-    state.tokensByMap[currentMapKey()] = deepClone(state.tokens || []);
-  }
-  function loadTokensForMap(key, centerX = 0.46, centerY = 0.58){
-    const savedTokens = state.tokensByMap?.[key];
-    if (Array.isArray(savedTokens) && savedTokens.length) {
-      const byId = new Map(savedTokens.map(t => [t.id, t]));
-      state.tokens = state.tokens.map((tok, i) => {
-        const prev = byId.get(tok.id);
-        if (!prev) return { ...tok, x: centerX + (i * 0.04), y: centerY + (i * 0.04), milesUsed: 0 };
-        return {
-          ...tok,
-          x: Number.isFinite(prev.x) ? prev.x : tok.x,
-          y: Number.isFinite(prev.y) ? prev.y : tok.y,
-          size: Number.isFinite(prev.size) ? prev.size : tok.size,
-          groupId: prev.groupId || null,
-          axial: prev.axial || null,
-          milesUsed: Number.isFinite(prev.milesUsed) ? prev.milesUsed : tok.milesUsed
-        };
-      });
-      return;
-    }
-    state.tokens = state.tokens.map((tok, i) => ({
-      ...tok,
-      x: explorerClamp(centerX + ((i % 3) * 0.05), 0.08, 0.88),
-      y: explorerClamp(centerY + (Math.floor(i / 3) * 0.06), 0.08, 0.88),
-      axial: null
-    }));
-  }
-  function rebuildPartyTokens(names){
-    const cleaned = names.map(n => String(n || "").trim()).filter(Boolean);
-    if (!cleaned.length) return false;
-    state.tokens = cleaned.map((name, i) => ({
-      id: `party_${i+1}`,
-      name,
-      initial: explorerHeroInitial(name),
-      x: 0.12 + (i * 0.07),
-      y: 0.18 + (i * 0.06),
-      size: 46,
-      groupId: null,
-      milesUsed: 0,
-      axial: null
-    }));
-    travelFocusId = state.tokens[0]?.id || null;
-    state.tokensByMap = {};
-    return true;
-  }
-
-  root.insertAdjacentHTML("beforeend", `
-    <div class="hubOverlay" id="hubPartyOverlay" hidden>
-      <div class="hubOverlay_backdrop" id="hubPartyOverlayBackdrop"></div>
-      <div class="hubOverlay_card" role="dialog" aria-modal="true" aria-labelledby="hubPartyTitle">
-        <div class="hubOverlay_top">
-          <div>
-            <div class="hubOverlay_kicker">Scarlett Isles World Hub</div>
-            <h3 class="hubOverlay_title" id="hubPartyTitle">Welcome to the Scarlett Isles RPG</h3>
-          </div>
-          <button class="btn ghost" id="hubPartyClose" type="button">Close</button>
-        </div>
-        <p class="hubOverlay_desc" id="hubPartyIntro">Name your party tokens, choose a party level, and begin exploring.</p>
-        <div class="hubFieldRow">
-          <label class="hubField">
-            <span>Party Level</span>
-            <input id="hubPartyLevel" type="number" min="1" max="20" value="1" />
-          </label>
-        </div>
-        <div id="hubPartyList" class="hubPartyList"></div>
-        <div class="hubOverlay_actionsSplit">
-          <button class="btn ghost" id="hubAddPartyMember" type="button">Add Player Token</button>
-          <button class="btn ghost" id="hubResetParty" type="button">Reset Party</button>
-        </div>
-        <div class="hubBastionBox" id="hubBastionBox">
-          <div class="hubOverlay_kicker">Optional Bastion</div>
-          <p class="hubOverlay_desc" id="hubBastionHelp">Bastions unlock once the party reaches level 5. If enabled, the World Hub will prompt for a Bastion Turn every 7 in-game days.</p>
-          <label class="hubCheck"><input id="hubBastionEnabled" type="checkbox" /> <span>Enable bastion play for this campaign</span></label>
-          <label class="hubField">
-            <span>Bastion Name</span>
-            <input id="hubBastionName" type="text" placeholder="e.g. Ravenwatch Keep" />
-          </label>
-        </div>
-        <div class="hubOverlay_actionsEnd">
-          <button class="btn" id="hubPartySave" type="button">Begin Journey</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="hubOverlay" id="hubPoiOverlay" hidden>
-      <div class="hubOverlay_backdrop" id="hubPoiBackdrop"></div>
-      <div class="hubOverlay_card" role="dialog" aria-modal="true" aria-labelledby="hubPoiTitle">
-        <div class="hubOverlay_top">
-          <div>
-            <div class="hubOverlay_kicker" id="hubPoiMeta">Point of Interest</div>
-            <h3 class="hubOverlay_title" id="hubPoiTitle">—</h3>
-          </div>
-          <button class="btn ghost" id="hubPoiClose" type="button">Close</button>
-        </div>
-        <div class="hubOverlay_desc" id="hubPoiDesc"></div>
-        <div class="hubOverlay_actionsEnd" id="hubPoiActions"></div>
-      </div>
-    </div>
-
-    <div class="hubOverlay" id="hubEncounterOverlay" hidden>
-      <div class="hubOverlay_backdrop" id="hubEncounterBackdrop"></div>
-      <div class="hubOverlay_card hubOverlay_card--wide" role="dialog" aria-modal="true" aria-labelledby="hubEncounterTitle">
-        <div class="hubOverlay_top">
-          <div>
-            <div class="hubOverlay_kicker">Encounter Launch</div>
-            <h3 class="hubOverlay_title" id="hubEncounterTitle">Prepare Encounter</h3>
-          </div>
-          <button class="btn ghost" id="hubEncounterClose" type="button">Close</button>
-        </div>
-        <p class="hubOverlay_desc" id="hubEncounterDesc"></p>
-        <div id="hubEncounterPartySetup" class="hubEncounterPartySetup"></div>
-        <div class="hubOverlay_actionsEnd">
-          <button class="btn" id="hubEncounterLaunch" type="button">Open Encounter Tracker</button>
-        </div>
-      </div>
-    </div>
-  `);
-
-  const controlsEl = root.querySelector(".explorer-controls");
-  if (controlsEl) {
-    controlsEl.insertAdjacentHTML("beforeend", `
-      <span class="explorer-divider"></span>
-      <div class="explorer-group">
-        <button class="btn ghost" id="hubPartyCampaignBtn" type="button">Party / Campaign</button>
-        <button class="btn ghost" id="hubOpenBastionBtn" type="button" style="display:none;">Open Bastion</button>
-        <button class="btn ghost" id="hubExitSubmapBtn" type="button" style="display:none;">Exit Location</button>
-      </div>
-    `);
-  }
-
-  const hubPartyOverlay = root.querySelector("#hubPartyOverlay");
-  const hubPartyOverlayBackdrop = root.querySelector("#hubPartyOverlayBackdrop");
-  const hubPartyTitle = root.querySelector("#hubPartyTitle");
-  const hubPartyIntro = root.querySelector("#hubPartyIntro");
-  const hubPartyList = root.querySelector("#hubPartyList");
-  const hubPartyLevel = root.querySelector("#hubPartyLevel");
-  const hubPartySave = root.querySelector("#hubPartySave");
-  const hubPartyClose = root.querySelector("#hubPartyClose");
-  const hubAddPartyMember = root.querySelector("#hubAddPartyMember");
-  const hubResetParty = root.querySelector("#hubResetParty");
-  const hubBastionBox = root.querySelector("#hubBastionBox");
-  const hubBastionHelp = root.querySelector("#hubBastionHelp");
-  const hubBastionEnabled = root.querySelector("#hubBastionEnabled");
-  const hubBastionName = root.querySelector("#hubBastionName");
-  const hubPartyCampaignBtn = root.querySelector("#hubPartyCampaignBtn");
-  const hubOpenBastionBtn = root.querySelector("#hubOpenBastionBtn");
-  const hubExitSubmapBtn = root.querySelector("#hubExitSubmapBtn");
-
-  const hubPoiOverlay = root.querySelector("#hubPoiOverlay");
-  const hubPoiBackdrop = root.querySelector("#hubPoiBackdrop");
-  const hubPoiClose = root.querySelector("#hubPoiClose");
-  const hubPoiMeta = root.querySelector("#hubPoiMeta");
-  const hubPoiTitle = root.querySelector("#hubPoiTitle");
-  const hubPoiDesc = root.querySelector("#hubPoiDesc");
-  const hubPoiActions = root.querySelector("#hubPoiActions");
-
-  const hubEncounterOverlay = root.querySelector("#hubEncounterOverlay");
-  const hubEncounterBackdrop = root.querySelector("#hubEncounterBackdrop");
-  const hubEncounterClose = root.querySelector("#hubEncounterClose");
-  const hubEncounterTitle = root.querySelector("#hubEncounterTitle");
-  const hubEncounterDesc = root.querySelector("#hubEncounterDesc");
-  const hubEncounterPartySetup = root.querySelector("#hubEncounterPartySetup");
-  const hubEncounterLaunch = root.querySelector("#hubEncounterLaunch");
-  let pendingEncounterTemplate = null;
-  let pendingEncounterSource = "";
-
-  function overlayShow(el){ if (el) el.hidden = false; }
-  function overlayHide(el){ if (el) el.hidden = true; }
-
-  function renderPartyRows(names){
-    const list = Array.isArray(names) && names.length ? names : (state.tokens || []).map(t => t.name);
-    hubPartyList.innerHTML = list.map((name, i) => `
-      <div class="hubPartyRow">
-        <input data-party-name type="text" value="${hubEscapeHtml(name)}" placeholder="Player ${i+1}" />
-        <button class="btn ghost hubRemovePartyMember" type="button">Remove</button>
-      </div>
-    `).join("");
-
-    hubPartyList.querySelectorAll(".hubRemovePartyMember").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const rows = Array.from(hubPartyList.querySelectorAll(".hubPartyRow"));
-        if (rows.length <= 1) {
-          alert("Keep at least one party token.");
-          return;
-        }
-        btn.closest(".hubPartyRow")?.remove();
-      });
-    });
-  }
-
-  function syncPartyOverlayUi(){
-    const lvl = explorerClamp(Number(hubPartyLevel?.value || state.campaign?.partyLevel || 1), 1, 20);
-    const eligible = lvl >= 5;
-    hubBastionBox.classList.toggle("isLocked", !eligible);
-    if (hubBastionEnabled) hubBastionEnabled.disabled = !eligible;
-    if (!eligible) hubBastionEnabled.checked = false;
-    if (hubBastionHelp) {
-      hubBastionHelp.textContent = eligible
-        ? "Enable this if the party has founded a bastion. Weekly Bastion Turn prompts will only appear when this is switched on."
-        : "Bastions unlock once the party reaches level 5. Raise the party level here when your campaign reaches that point.";
-    }
-  }
-
-  function openPartyOverlay(){
-    const firstTime = !state.campaign?.started;
-    hubPartyTitle.textContent = firstTime ? "Welcome to the Scarlett Isles RPG" : "Party & Campaign";
-    hubPartyIntro.textContent = firstTime
-      ? "Name your player tokens, choose a party level, and begin exploring the Isles."
-      : "Edit party names, party level, and optional bastion settings for this World Hub save.";
-    hubPartySave.textContent = firstTime ? "Begin Journey" : "Save Changes";
-    hubPartyLevel.value = String(state.campaign?.partyLevel || 1);
-    hubBastionEnabled.checked = !!state.campaign?.bastionEnabled;
-    hubBastionName.value = state.campaign?.bastionName || "";
-    renderPartyRows((state.tokens || []).map(t => t.name));
-    syncPartyOverlayUi();
-    overlayShow(hubPartyOverlay);
-  }
-
-  function closePartyOverlay(force = false){
-    if (!state.campaign?.started && !force) return;
-    overlayHide(hubPartyOverlay);
-  }
-
-  function updateHubButtons(){
-    if (hubOpenBastionBtn) hubOpenBastionBtn.style.display = state.campaign?.bastionEnabled ? "" : "none";
-    if (hubExitSubmapBtn) hubExitSubmapBtn.style.display = state.submap ? "" : "none";
-  }
-
-  function openBastionManager(){
-    if (!state.campaign?.bastionEnabled) {
-      alert("Enable a bastion first in Party / Campaign.");
-      return;
-    }
-    window.open("./bastion.html", "ScarlettWorldHubBastion", "popup=yes,width=1500,height=950");
-  }
-
-  function enterSubmap(marker){
-    if (!marker?.submapImage || !state.mapPresetId) return;
-    saveTokensForCurrentMap();
-    state.submap = {
-      id: marker.id,
-      label: marker.label,
-      parentMapId: state.mapPresetId,
-      image: marker.submapImage
-    };
-    state.mapPresetId = null;
-    state.mapSrc = withBase(marker.submapImage);
-    state.mapDataUrl = null;
-    loadTokensForMap(currentMapKey(), 0.42, 0.62);
-    closeMarkerModal();
-    saveNow();
-    rerenderAll();
-    updateHubButtons();
-    setNotice(`${marker.label}: local exploration mode. Travel miles are paused inside submaps.`);
-  }
-
-  function exitSubmap(){
-    if (!state.submap) return;
-    saveTokensForCurrentMap();
-    const parentId = state.submap.parentMapId;
-    const preset = MAP_PRESETS.find(m => m.id === parentId);
-    state.submap = null;
-    state.mapPresetId = parentId || null;
-    state.mapSrc = preset?.src || null;
-    state.mapDataUrl = null;
-    loadTokensForMap(currentMapKey(), 0.48, 0.58);
-    saveNow();
-    rerenderAll();
-    updateHubButtons();
-    setNotice("Returned to the regional map.");
-  }
-
-  function getEncounterTemplate(templateId){
-    return WORLD_CONTENT_DB?.encounterTemplates?.[templateId] || null;
-  }
-
-  function openEncounterLaunch(templateId, sourceLabel){
-    const template = getEncounterTemplate(templateId);
-    if (!template) {
-      alert(`Encounter template not found: ${templateId}`);
-      return;
-    }
-    pendingEncounterTemplate = template;
-    pendingEncounterSource = sourceLabel || template.name;
-    hubEncounterTitle.textContent = template.name || "Encounter";
-    hubEncounterDesc.textContent = `${template.description || ""} Party setup is captured here before the Encounter Tracker opens.`.trim();
-    hubEncounterPartySetup.innerHTML = (state.tokens || []).map((tok, idx) => `
-      <div class="hubEncounterRow">
-        <div class="hubEncounterName">${hubEscapeHtml(tok.name)}</div>
-        <label class="hubField"><span>HP</span><input data-enc-hp type="number" min="1" value="1" /></label>
-        <label class="hubField"><span>Initiative</span><input data-enc-init type="number" step="1" value="0" /></label>
-      </div>
-    `).join("");
-    overlayShow(hubEncounterOverlay);
-  }
-
-  function launchEncounterTracker(){
-    if (!pendingEncounterTemplate) return;
-    const tier = encounterTier(state.campaign?.partyLevel || 1);
-    const tierList = pendingEncounterTemplate.tiers?.[String(tier)] || pendingEncounterTemplate.tiers?.default || [];
-    const pcRows = Array.from(hubEncounterPartySetup.querySelectorAll(".hubEncounterRow"));
-    const roster = [];
-
-    pcRows.forEach((row, idx) => {
-      const tok = state.tokens[idx];
-      const hp = Math.max(1, Number(row.querySelector('[data-enc-hp]')?.value || 1));
-      const init = Number(row.querySelector('[data-enc-init]')?.value || 0);
-      roster.push({
-        encId: hubUid(),
-        baseId: null,
-        name: tok?.name || `Player ${idx+1}`,
-        type: "pc",
-        maxHp: hp,
-        curHp: hp,
-        init,
-        avatar: "",
-        refLink: "",
-        conditions: [],
-        defeated: false
-      });
-    });
-
-    tierList.forEach((m, idx) => {
-      const hp = Math.max(1, Number(m.maxHp || 1));
-      roster.push({
-        encId: hubUid(),
-        baseId: null,
-        name: m.name || `Monster ${idx+1}`,
-        type: "monster",
-        maxHp: hp,
-        curHp: hp,
-        init: (m.init == null ? null : Number(m.init)),
-        avatar: m.avatar || "",
-        refLink: m.refLink || "",
-        conditions: [],
-        defeated: false
-      });
-    });
-
-    const payload = {
-      library: [],
-      selectedLibraryIds: [],
-      savedEncounters: [],
-      encounter: {
-        name: pendingEncounterTemplate.name || pendingEncounterSource || "Encounter",
-        status: "ready",
-        roster,
-        turnIndex: 0,
-        round: 1
-      },
-      ui: { targetId: roster[0]?.encId || null }
-    };
-
-    localStorage.setItem(HUB_ENCOUNTER_KEY, JSON.stringify(payload));
-    window.open("./encounter.html", "ScarlettWorldHubEncounter", "popup=yes,width=1440,height=980");
-    overlayHide(hubEncounterOverlay);
-    pendingEncounterTemplate = null;
-  }
-
-  function openPoiModal(poi, metaLabel = "Point of Interest"){
-    hubPoiMeta.textContent = metaLabel;
-    hubPoiTitle.textContent = poi?.label || "Point of Interest";
-    hubPoiDesc.textContent = poi?.description || "Replace this placeholder with your published location content.";
-    hubPoiActions.innerHTML = "";
-
-    if (poi?.templateId) {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn";
-      btn.textContent = "Launch Encounter";
-      btn.addEventListener("click", () => openEncounterLaunch(poi.templateId, poi.label || "Encounter"));
-      hubPoiActions.appendChild(btn);
-    }
-    overlayShow(hubPoiOverlay);
-  }
-
-  function closePoiModal(){ overlayHide(hubPoiOverlay); }
-
-  function renderRegionalMarkersAndHotspots(){
-    const mapId = state.mapPresetId || "";
-    const list = MARKER_DB?.markersByMapId?.[mapId];
-    if (Array.isArray(list) && list.length) {
-      const filtered = list.filter(m => {
-        if (!m.submapImage || !String(m.submapImage).trim()) return false;
-        if (!markerIsRevealedByFog(m)) return false;
-        return true;
-      });
-      filtered.forEach(m => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "explorer-markerBtn";
-        btn.style.left = `${(Number(m.x) || 0) * 100}%`;
-        btn.style.top  = `${(Number(m.y) || 0) * 100}%`;
-        const thumb = m.thumb ? withBase(String(m.thumb)) : "";
-        btn.innerHTML = thumb ? `<img src="${thumb}" alt="">` : `<span style="font-size:28px;">✦</span>`;
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          openMarkerModal(m);
-        });
-        markerLayer.appendChild(btn);
-      });
-    }
-
-    const wildList = WORLD_CONTENT_DB?.wildernessHotspotsByMapId?.[mapId] || [];
-    wildList.forEach(hs => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "encounterHotspotBtn";
-      btn.style.left = `${(Number(hs.x) || 0) * 100}%`;
-      btn.style.top  = `${(Number(hs.y) || 0) * 100}%`;
-      btn.title = hs.label || "Encounter";
-      btn.innerHTML = `<span>⚔</span>`;
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openPoiModal(hs, "Wilderness Encounter");
-      });
-      markerLayer.appendChild(btn);
-    });
-  }
-
-  function renderPoiMarkers(){
-    const loc = WORLD_CONTENT_DB?.locations?.[state.submap?.id];
-    if (!loc) return;
-    (loc.poiMarkers || []).forEach(poi => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "poiMarkerBtn";
-      btn.style.left = `${(Number(poi.x) || 0) * 100}%`;
-      btn.style.top  = `${(Number(poi.y) || 0) * 100}%`;
-      btn.textContent = poi.label || "POI";
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openPoiModal(poi, poi.type ? `${poi.type.charAt(0).toUpperCase()}${poi.type.slice(1)}` : "Point of Interest");
-      });
-      markerLayer.appendChild(btn);
-    });
-
-    (loc.encounters || []).forEach(hs => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "encounterHotspotBtn";
-      btn.style.left = `${(Number(hs.x) || 0) * 100}%`;
-      btn.style.top  = `${(Number(hs.y) || 0) * 100}%`;
-      btn.title = hs.label || "Encounter";
-      btn.innerHTML = `<span>⚔</span>`;
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openPoiModal(hs, "Encounter Hook");
-      });
-      markerLayer.appendChild(btn);
-    });
-  }
-
-  function openMarkerModal(marker){
     if(!mkModal) return;
-    const img = marker?.submapImage ? String(marker.submapImage) : "";
     const loc = WORLD_CONTENT_DB?.locations?.[marker?.id] || null;
+    const previewImage = resolveLocationPreview(marker, loc);
+    const mapImage = resolveLocationMap(marker, loc);
     mkMeta.textContent = "Location";
-    mkTitle.textContent = marker?.label || "Location";
-    if (mkMedia) mkMedia.innerHTML = img ? `<img src="${withBase(img)}" alt="">` : "";
+    mkTitle.textContent = marker?.label || loc?.label || "Location";
+    if (mkMedia) mkMedia.innerHTML = previewImage ? `<img src="${withBase(previewImage)}" alt="">` : "";
     if (mkDesc) {
+      const desc = marker?.description || loc?.previewDescription || loc?.description || "Open this location to use its town or city submap.";
+      const scale = loc?.scaleLabel ? `<p class="hubInlineNote">${hubEscapeHtml(loc.scaleLabel)}</p>` : "";
+      const mapNote = loc?.mapImage
+        ? `<p class="hubInlineNote">Entering this location opens the explorable local map defined in <code>data/world_content.json</code>.</p>`
+        : `<p class="hubInlineNote">No separate local map has been assigned yet. Until you add <code>locations.${hubEscapeHtml(marker?.id || "")}.mapImage</code>, this button will use the current image as a fallback.</p>`;
       mkDesc.innerHTML = `
-        <p>${hubEscapeHtml(marker?.description || loc?.description || "Enter this location to use its town or city submap.")}</p>
-        ${loc?.scaleLabel ? `<p class="hubInlineNote">${hubEscapeHtml(loc.scaleLabel)}</p>` : ""}
+        <p>${hubEscapeHtml(desc)}</p>
+        ${scale}
+        ${mapNote}
         <div class="hubModalActions">
-          ${img ? `<button class="btn" id="hubEnterSubmapFromMarker" type="button">Enter Location</button>` : ""}
+          ${mapImage ? `<button class="btn" id="hubEnterSubmapFromMarker" type="button">Enter Location</button>` : ""}
         </div>
       `;
       mkDesc.querySelector("#hubEnterSubmapFromMarker")?.addEventListener("click", () => enterSubmap(marker));
@@ -1780,6 +1190,10 @@ if (saved.travel) state.travel = { ...state.travel, ...saved.travel };
   hubEncounterClose?.addEventListener("click", () => overlayHide(hubEncounterOverlay));
   hubEncounterBackdrop?.addEventListener("click", () => overlayHide(hubEncounterOverlay));
   hubEncounterLaunch?.addEventListener("click", launchEncounterTracker);
+  hubBastionPromptClose?.addEventListener("click", () => overlayHide(hubBastionPromptOverlay));
+  hubBastionPromptBackdrop?.addEventListener("click", () => overlayHide(hubBastionPromptOverlay));
+  hubBastionPromptLater?.addEventListener("click", () => overlayHide(hubBastionPromptOverlay));
+  hubBastionPromptOpen?.addEventListener("click", openBastionManager);
   hubAddPartyMember?.addEventListener("click", () => {
     const rows = Array.from(hubPartyList.querySelectorAll('[data-party-name]')).map(i => i.value || "");
     rows.push(`Player ${rows.length + 1}`);
@@ -2274,16 +1688,6 @@ function updateTravelUI() {
   const t = travelModeFromMiles(used);
   if (modeEl) modeEl.textContent = t.mode;
   if (effectsEl) effectsEl.textContent = t.effects;
-    // Trackers (safe defaults)
-if (!state.trackers || typeof state.trackers !== "object") {
-  state.trackers = { gold: 0, log: [] };
-}
-if (!Number.isFinite(state.trackers.gold)) state.trackers.gold = 0;
-if (!Array.isArray(state.trackers.log)) state.trackers.log = [];
-
-if (goldEl) goldEl.textContent = String(state.trackers.gold);
-
-
 
   // Render per-hero list
   if (milesListEl) {
@@ -2573,8 +1977,9 @@ if (state.snap.enabled) {
 
         // Hide “empty” markers (no submap image), and hide markers in fogged areas
 const filtered = list.filter(m => {
-  // 1) no submap image = don’t render marker at all
-  if (!m.submapImage || !String(m.submapImage).trim()) return false;
+  // 1) no preview or map image = don’t render marker at all
+  const loc = WORLD_CONTENT_DB?.locations?.[m.id] || null;
+  if (!resolveLocationPreview(m, loc)) return false;
 
   // 2) if fog is on, only render if that hex has been revealed
   if (!markerIsRevealedByFog(m)) return false;
@@ -2981,11 +2386,7 @@ if (state.campaign?.bastionEnabled) {
   const currentDay = Number(state.travel.day) || 1;
   if (currentDay > 1 && currentDay % 7 === 1 && state.campaign.weeklyPromptDay !== currentDay) {
     state.campaign.weeklyPromptDay = currentDay;
-    const bastionLabel = String(state.campaign.bastionName || "Your Bastion").trim() || "Your Bastion";
-    const shouldOpen = window.confirm(`${bastionLabel} is ready for a Bastion Turn. Open the Bastion Manager now?`);
-    if (shouldOpen) {
-      window.open("./bastion.html", "ScarlettWorldHubBastion", "popup=yes,width=1500,height=950");
-    }
+    openBastionTurnPrompt();
   }
 }
 
@@ -2993,9 +2394,9 @@ if (state.campaign?.bastionEnabled) {
   // reset ALL heroes for the new day
   state.tokens.forEach(t => t.milesUsed = 0);
 
-  // Prepare next random travel event threshold for the new day
-  state.travel.nextTravelEventAtMiles = 6 + Math.floor(Math.random() * 19); // 6–24
-  state.travel.travelEventDay = 0; // allow a travel event on the new day
+  // Travel events are disabled in the World Hub build.
+  state.travel.nextTravelEventAtMiles = 0;
+  state.travel.travelEventDay = 0;
 
   saveNow();
   setNotice("");
@@ -3401,39 +2802,6 @@ if (state.freeMove || state.submap) {
         if (!tok) continue;
         tok.milesUsed = (Number(tok.milesUsed) || 0) + milesMoved;
       }
-
-        // TRAVEL EVENT (max once per day)
-const dayNow = Number(state.travel.day) || 1;
-
-// If no threshold exists for today, create one
-if (!state.travel.nextTravelEventAtMiles || state.travel.nextTravelEventAtMiles <= 0) {
-  state.travel.nextTravelEventAtMiles = 6 + Math.floor(Math.random() * 19); // 6–24
-}
-
-// Only trigger once per day
-if (state.travel.travelEventDay !== dayNow) {
-  const anchorNow = getTokenById(drag.anchorId);
-  const milesNow = Number(anchorNow?.milesUsed) || 0;
-
-  if (milesNow >= state.travel.nextTravelEventAtMiles) {
-
-  // If forced main event is due, it replaces the travel event.
-  if (maybeTriggerForcedMainEvent()) {
-    state.travel.travelEventDay = dayNow; // still counts as the day's travel event
-  } else {
-    const prov = state.travel?.provinceId || "northern_province";
-    const db = EVENT_DB;
-
-    if (db?.provinces?.[prov]?.travel_events?.length) {
-      const ev = pickRandom(db.provinces[prov].travel_events);
-      if (ev) {
-        openEventModal("travel", ev);
-        state.travel.travelEventDay = dayNow; // lock for the day
-      }
-    }
-  }
-}
-}
 
       travelFocusId = anchorTok.id;
 
