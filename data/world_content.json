@@ -12,7 +12,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Swyth. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Swyth. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "swyth_smith",
@@ -20,7 +24,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Swyth. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Swyth. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "swyth_market",
@@ -28,7 +36,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Swyth. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Swyth. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "swyth_shrine",
@@ -36,7 +48,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Swyth. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Swyth. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -48,7 +64,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Swyth. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Swyth is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "greymyr": {
       "label": "Greymyr",
@@ -61,7 +79,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Greymyr. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Greymyr. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "greymyr_smith",
@@ -69,7 +91,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Greymyr. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Greymyr. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "greymyr_market",
@@ -77,7 +103,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Greymyr. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Greymyr. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "greymyr_shrine",
@@ -85,7 +115,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Greymyr. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Greymyr. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -97,7 +131,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Greymyr. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Greymyr is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "bleakhold": {
       "label": "The Bleakhold",
@@ -110,7 +146,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for The Bleakhold. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for The Bleakhold. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bleakhold_smith",
@@ -118,7 +158,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for The Bleakhold. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for The Bleakhold. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bleakhold_market",
@@ -126,7 +170,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for The Bleakhold. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for The Bleakhold. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bleakhold_shrine",
@@ -134,7 +182,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for The Bleakhold. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for The Bleakhold. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -146,7 +198,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for The Bleakhold. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "The Bleakhold is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "bleakharbour": {
       "label": "Bleakharbour",
@@ -159,7 +213,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Bleakharbour. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Bleakharbour. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bleakharbour_smith",
@@ -167,7 +225,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Bleakharbour. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Bleakharbour. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bleakharbour_market",
@@ -175,7 +237,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Bleakharbour. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Bleakharbour. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bleakharbour_shrine",
@@ -183,7 +249,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Bleakharbour. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Bleakharbour. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -195,7 +265,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Bleakharbour. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Bleakharbour is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "coldpass": {
       "label": "Coldpass",
@@ -208,7 +280,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Coldpass. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Coldpass. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "coldpass_smith",
@@ -216,7 +292,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Coldpass. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Coldpass. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "coldpass_market",
@@ -224,7 +304,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Coldpass. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Coldpass. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "coldpass_shrine",
@@ -232,7 +316,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Coldpass. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Coldpass. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -244,7 +332,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Coldpass. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Coldpass is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "middlemount": {
       "label": "Middlemount",
@@ -257,7 +347,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Middlemount. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Middlemount. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "middlemount_smith",
@@ -265,7 +359,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Middlemount. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Middlemount. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "middlemount_market",
@@ -273,7 +371,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Middlemount. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Middlemount. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "middlemount_shrine",
@@ -281,7 +383,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Middlemount. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Middlemount. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -293,7 +399,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Middlemount. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Middlemount is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "slades_muster": {
       "label": "Slade\u2019s Muster",
@@ -306,7 +414,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Slade\u2019s Muster. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Slade\u2019s Muster. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "slades_muster_smith",
@@ -314,7 +426,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Slade\u2019s Muster. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Slade\u2019s Muster. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "slades_muster_market",
@@ -322,7 +438,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Slade\u2019s Muster. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Slade\u2019s Muster. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "slades_muster_shrine",
@@ -330,7 +450,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Slade\u2019s Muster. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Slade\u2019s Muster. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -342,7 +466,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Slade\u2019s Muster. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Slade\u2019s Muster is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "moorcastle": {
       "label": "Moorcastle",
@@ -355,7 +481,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Moorcastle. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Moorcastle. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "moorcastle_smith",
@@ -363,7 +493,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Moorcastle. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Moorcastle. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "moorcastle_market",
@@ -371,7 +505,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Moorcastle. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Moorcastle. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "moorcastle_shrine",
@@ -379,7 +517,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Moorcastle. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Moorcastle. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -391,7 +533,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Moorcastle. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Moorcastle is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "bretan": {
       "label": "Bretan",
@@ -404,7 +548,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Bretan. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Bretan. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bretan_smith",
@@ -412,7 +560,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Bretan. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Bretan. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bretan_market",
@@ -420,7 +572,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Bretan. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Bretan. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "bretan_shrine",
@@ -428,7 +584,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Bretan. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Bretan. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -440,7 +600,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Bretan. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Bretan is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "alderbridge": {
       "label": "Alderbridge",
@@ -453,7 +615,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Alderbridge. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Alderbridge. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "alderbridge_smith",
@@ -461,7 +627,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Alderbridge. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Alderbridge. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "alderbridge_market",
@@ -469,7 +639,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Alderbridge. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Alderbridge. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "alderbridge_shrine",
@@ -477,7 +651,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Alderbridge. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Alderbridge. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -489,7 +667,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Alderbridge. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Alderbridge is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "wolfhaven": {
       "label": "Wolfhaven",
@@ -502,7 +682,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Wolfhaven. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Wolfhaven. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "wolfhaven_smith",
@@ -510,7 +694,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Wolfhaven. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Wolfhaven. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "wolfhaven_market",
@@ -518,7 +706,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Wolfhaven. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Wolfhaven. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "wolfhaven_shrine",
@@ -526,7 +718,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Wolfhaven. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Wolfhaven. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -538,54 +734,119 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Wolfhaven. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Wolfhaven is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "nightwood": {
       "label": "Nightwood",
-      "description": "Nightwood is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
-      "scaleLabel": "Local location scale. Travel miles are paused here.",
+      "description": "Nightwood sits beneath heavy boughs and old authority. Use the concept art as the location preview, then assign a separate top-down local map here once it is uploaded.",
+      "previewDescription": "Nightwood is a layered settlement entry. The first click should show your concept art and atmosphere text. The Enter Location button should then lead into a top-down local map once you assign locations.nightwood.mapImage.",
+      "scaleLabel": "Local town scale. Travel miles are paused here.",
+      "mapImage": "",
       "poiMarkers": [
         {
-          "id": "nightwood_tavern",
-          "label": "Tavern / Inn",
+          "id": "nightwood_clan_quarters",
+          "label": "Clan Quarters",
+          "type": "clan",
+          "icon": "\ud83d\udee1",
+          "x": 0.58,
+          "y": 0.33,
+          "description": "The clan quarters serve as Nightwood\u2019s political heart. Visiting here lets the party meet household officials, clan envoys, guards, and petitioners.",
+          "keyNpcs": [
+            "Quartermaster Edrik Vane",
+            "Captain Seral Thorn",
+            "House Envoy Merrow Vale"
+          ],
+          "services": [
+            "Request an audience",
+            "Gather local political rumours",
+            "Hire local escorts or runners"
+          ],
+          "notes": [
+            "Good place to deliver messages or secure clan favour hooks.",
+            "A failed social scene here can ripple into later settlement politics."
+          ]
+        },
+        {
+          "id": "nightwood_temple_telluria",
+          "label": "Temple of Telluria",
+          "type": "temple",
+          "icon": "\ud83d\uded5",
+          "x": 0.31,
+          "y": 0.41,
+          "description": "A rooted stone temple dedicated to Telluria. Priests here oversee blessings, memorials, and rites tied to land, duty, and endurance.",
+          "keyNpcs": [
+            "High Keeper Naeva Holt",
+            "Brother Carrow Fen"
+          ],
+          "services": [
+            "Request a blessing",
+            "Seek local lore",
+            "Ask about omens or sacred ground"
+          ],
+          "notes": [
+            "Ideal lore-delivery point for temple politics and divine favour."
+          ]
+        },
+        {
+          "id": "nightwood_inn",
+          "label": "The Black Briar Inn",
           "type": "social",
-          "x": 0.48,
-          "y": 0.57,
-          "description": "Local tavern information for Nightwood. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "icon": "\ud83c\udf7a",
+          "x": 0.44,
+          "y": 0.62,
+          "description": "A warm inn where scouts, merchants, and wardens share news over food and strong drink.",
+          "keyNpcs": [
+            "Innkeeper Sella Marr",
+            "Hunter Bors Tain"
+          ],
+          "services": [
+            "Food and rooms",
+            "Rumours",
+            "Local job leads"
+          ],
+          "notes": [
+            "Easy place to drop regional rumours or wilderness hooks."
+          ]
         },
         {
           "id": "nightwood_smith",
-          "label": "Smith / Armourer",
+          "label": "Ironroot Smithy",
           "type": "shop",
-          "x": 0.62,
-          "y": 0.46,
-          "description": "Smithy information for Nightwood. Replace this with stock, costs, named smiths, commissions, and quest hooks."
-        },
-        {
-          "id": "nightwood_market",
-          "label": "Market Square",
-          "type": "shop",
-          "x": 0.36,
-          "y": 0.42,
-          "description": "Market information for Nightwood. Replace this with shops, notices, travellers, and local colour."
-        },
-        {
-          "id": "nightwood_shrine",
-          "label": "Shrine / Temple",
-          "type": "lore",
-          "x": 0.54,
-          "y": 0.34,
-          "description": "Religious site information for Nightwood. Replace this with temple details, blessings, priest names, and lore."
+          "icon": "\u2692",
+          "x": 0.69,
+          "y": 0.57,
+          "description": "A heavy timber smithy that supplies tools, tack, repair work, and rugged frontier arms.",
+          "keyNpcs": [
+            "Master Smith Corin Ash"
+          ],
+          "services": [
+            "Repairs",
+            "Commission work",
+            "Basic armour and weapons"
+          ],
+          "notes": [
+            "Useful for downtime costs, kit repair, and bespoke commissions."
+          ]
         }
       ],
       "encounters": [
         {
-          "id": "nightwood_gate_skirmish",
-          "label": "Gate Skirmish",
-          "x": 0.18,
-          "y": 0.72,
+          "id": "nightwood_gate_dispute",
+          "label": "Gate Dispute",
+          "x": 0.16,
+          "y": 0.78,
           "templateId": "town_guard_skirmish",
-          "description": "A starter encounter hook for Nightwood. Replace the template or the text to match your campaign pack."
+          "description": "A tense confrontation at Nightwood\u2019s gate threatens to spill into violence."
+        },
+        {
+          "id": "nightwood_shrine_attack",
+          "label": "Temple Grounds Ambush",
+          "x": 0.28,
+          "y": 0.28,
+          "templateId": "rootbound_ambush",
+          "description": "Something hostile moves through sacred ground near the Temple of Telluria."
         }
       ]
     },
@@ -600,7 +861,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Timberport. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Timberport. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "timberport_smith",
@@ -608,7 +873,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Timberport. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Timberport. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "timberport_market",
@@ -616,7 +885,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Timberport. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Timberport. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "timberport_shrine",
@@ -624,7 +897,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Timberport. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Timberport. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -636,7 +913,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Timberport. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Timberport is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "goldport": {
       "label": "Goldport",
@@ -649,7 +928,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for Goldport. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for Goldport. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "goldport_smith",
@@ -657,7 +940,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for Goldport. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for Goldport. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "goldport_market",
@@ -665,7 +952,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for Goldport. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for Goldport. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "goldport_shrine",
@@ -673,7 +964,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for Goldport. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for Goldport. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -685,7 +980,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for Goldport. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "Goldport is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     },
     "city_of_coin": {
       "label": "The City of Coin",
@@ -698,7 +995,11 @@
           "type": "social",
           "x": 0.48,
           "y": 0.57,
-          "description": "Local tavern information for The City of Coin. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options."
+          "description": "Local tavern information for The City of Coin. Replace this with your own boxed text, rumours, prices, NPCs, and downtime options.",
+          "icon": "\ud83c\udf7a",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "city_of_coin_smith",
@@ -706,7 +1007,11 @@
           "type": "shop",
           "x": 0.62,
           "y": 0.46,
-          "description": "Smithy information for The City of Coin. Replace this with stock, costs, named smiths, commissions, and quest hooks."
+          "description": "Smithy information for The City of Coin. Replace this with stock, costs, named smiths, commissions, and quest hooks.",
+          "icon": "\u2692",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "city_of_coin_market",
@@ -714,7 +1019,11 @@
           "type": "shop",
           "x": 0.36,
           "y": 0.42,
-          "description": "Market information for The City of Coin. Replace this with shops, notices, travellers, and local colour."
+          "description": "Market information for The City of Coin. Replace this with shops, notices, travellers, and local colour.",
+          "icon": "\ud83d\uded2",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         },
         {
           "id": "city_of_coin_shrine",
@@ -722,7 +1031,11 @@
           "type": "lore",
           "x": 0.54,
           "y": 0.34,
-          "description": "Religious site information for The City of Coin. Replace this with temple details, blessings, priest names, and lore."
+          "description": "Religious site information for The City of Coin. Replace this with temple details, blessings, priest names, and lore.",
+          "icon": "\ud83d\uded5",
+          "keyNpcs": [],
+          "services": [],
+          "notes": []
         }
       ],
       "encounters": [
@@ -734,7 +1047,9 @@
           "templateId": "town_guard_skirmish",
           "description": "A starter encounter hook for The City of Coin. Replace the template or the text to match your campaign pack."
         }
-      ]
+      ],
+      "previewDescription": "The City of Coin is a ready-to-edit location entry for your World Hub. Replace this placeholder with the published town or city text from your Scarlett Isles campaign pack.",
+      "mapImage": ""
     }
   },
   "wildernessHotspotsByMapId": {
@@ -746,6 +1061,14 @@
         "y": 0.26,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "the_east_isle_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "the_north_isle": [
@@ -756,6 +1079,14 @@
         "y": 0.35,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "the_north_isle_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "midland_province": [
@@ -766,6 +1097,14 @@
         "y": 0.44,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "midland_province_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "eastern_province_north": [
@@ -776,6 +1115,14 @@
         "y": 0.53,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "eastern_province_north_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "eastern_province_south": [
@@ -786,6 +1133,14 @@
         "y": 0.62,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "eastern_province_south_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "southern_province_east": [
@@ -796,6 +1151,14 @@
         "y": 0.71,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "southern_province_east_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "northern_province_east": [
@@ -806,6 +1169,14 @@
         "y": 0.35000000000000003,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "northern_province_east_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "northern_province_west": [
@@ -816,6 +1187,14 @@
         "y": 0.44,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "northern_province_west_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "southern_province_west": [
@@ -826,6 +1205,14 @@
         "y": 0.53,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "southern_province_west_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ],
     "western_province_south": [
@@ -836,6 +1223,14 @@
         "y": 0.6199999999999999,
         "templateId": "road_bandits",
         "description": "A scalable wilderness encounter hook. Replace this with your own authored encounter entry."
+      },
+      {
+        "id": "western_province_south_roadside_ruin",
+        "label": "Roadside Ruin",
+        "x": 0.62,
+        "y": 0.52,
+        "templateId": "rootbound_ambush",
+        "description": "A ruin or overgrown roadside site that can trigger a wilderness encounter."
       }
     ]
   },
@@ -1108,6 +1503,106 @@
           {
             "name": "Veteran",
             "maxHp": 58
+          }
+        ]
+      }
+    },
+    "rootbound_ambush": {
+      "name": "Rootbound Ambush",
+      "description": "A corrupted forest skirmish suited to sacred groves, road verges, or dark woodland outskirts.",
+      "tiers": {
+        "1": [
+          {
+            "name": "2 Rootbound Thralls",
+            "maxHp": 11
+          },
+          {
+            "name": "Rootbound Stalker",
+            "maxHp": 18
+          }
+        ],
+        "2": [
+          {
+            "name": "2 Rootbound Stalkers",
+            "maxHp": 27
+          },
+          {
+            "name": "Rootbound Brute",
+            "maxHp": 42
+          }
+        ],
+        "3": [
+          {
+            "name": "3 Rootbound Stalkers",
+            "maxHp": 33
+          },
+          {
+            "name": "2 Rootbound Brutes",
+            "maxHp": 58
+          }
+        ],
+        "4": [
+          {
+            "name": "4 Rootbound Stalkers",
+            "maxHp": 40
+          },
+          {
+            "name": "2 Rootbound Hulks",
+            "maxHp": 82
+          }
+        ],
+        "default": [
+          {
+            "name": "Rootbound Stalker",
+            "maxHp": 18
+          }
+        ]
+      }
+    },
+    "dockside_cutthroats": {
+      "name": "Dockside Cutthroats",
+      "description": "A fast urban encounter for alleys, quays, tavern yards, or market spillways.",
+      "tiers": {
+        "1": [
+          {
+            "name": "3 Dockside Thugs",
+            "maxHp": 9
+          }
+        ],
+        "2": [
+          {
+            "name": "4 Dockside Thugs",
+            "maxHp": 18
+          },
+          {
+            "name": "Cutthroat Boss",
+            "maxHp": 27
+          }
+        ],
+        "3": [
+          {
+            "name": "5 Dockside Raiders",
+            "maxHp": 26
+          },
+          {
+            "name": "Cutthroat Boss",
+            "maxHp": 44
+          }
+        ],
+        "4": [
+          {
+            "name": "6 Dockside Raiders",
+            "maxHp": 34
+          },
+          {
+            "name": "2 Cutthroat Captains",
+            "maxHp": 65
+          }
+        ],
+        "default": [
+          {
+            "name": "3 Dockside Thugs",
+            "maxHp": 9
           }
         ]
       }
