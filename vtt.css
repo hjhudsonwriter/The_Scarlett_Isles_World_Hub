@@ -1,0 +1,453 @@
+/* ---------- VTT DARK MODE THEME ---------- */
+body.vtt {
+  background: #0e0f12;
+  color: #e7e7ea;
+}
+
+body.vtt .topbar {
+  background: rgba(20, 21, 26, 0.92);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+body.vtt .panel {
+  background: rgba(20, 21, 26, 0.86);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+body.vtt .panelHead {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+body.vtt .hint,
+body.vtt .muted {
+  color: rgba(231,231,234,0.7);
+}
+
+body.vtt .btn.ghost {
+  border-color: rgba(255,255,255,0.16);
+  color: rgba(231,231,234,0.9);
+}
+
+body.vtt .btn.ghost:hover {
+  border-color: rgba(255,255,255,0.28);
+}
+
+/* ---------- Controls row ---------- */
+.vttControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 14px 0 12px;
+}
+
+.vttControlGroup {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ---------- Map Stage ---------- */
+#mapStage {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 520px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+    background:
+    radial-gradient(800px 500px at 50% 40%, rgba(122,15,26,0.16), transparent 65%),
+    radial-gradient(900px 600px at 50% 70%, rgba(201,162,39,0.10), transparent 70%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 6px, rgba(255,255,255,0.00) 6px 12px),
+    rgba(0,0,0,0.55);
+}
+
+/* We scale this wrapper for map zoom */
+#mapWorld {
+  position: absolute;
+  inset: 0;
+  transform-origin: top left;
+}
+
+#mapImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* keeps whole map visible */
+  user-select: none;
+  pointer-events: none;
+}
+
+#gridCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 5;          /* ABOVE mapImage */
+  pointer-events: none;
+  display: none;       /* JS will toggle this on/off */
+}
+
+#tokenLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;         /* ABOVE grid */
+}
+
+#fogCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 20;       /* above tokens by default */
+  pointer-events: none;
+}
+
+/* ---------- Tokens ---------- */
+.token {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+}
+
+.token:active { cursor: grabbing; }
+
+.token img {
+  width: var(--tokenSize, 56px);
+  height: var(--tokenSize, 56px);
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.22);
+  box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+  background: rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+
+.tokenLabel {
+  margin-top: 6px;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(231,231,234,0.9);
+  white-space: nowrap;
+}
+/* ---------- Current turn highlight ---------- */
+.token.isActiveTurn img {
+  border-color: rgba(201,162,39,0.95);
+  animation: turnPulse 1.15s ease-out infinite;
+}
+
+@keyframes turnPulse {
+  0% {
+    box-shadow:
+      0 10px 18px rgba(0,0,0,0.35),
+      0 0 0 0 rgba(201,162,39,0.55),
+      0 0 18px rgba(201,162,39,0.25);
+  }
+  70% {
+    box-shadow:
+      0 10px 18px rgba(0,0,0,0.35),
+      0 0 0 10px rgba(201,162,39,0),
+      0 0 26px rgba(201,162,39,0.15);
+  }
+  100% {
+    box-shadow:
+      0 10px 18px rgba(0,0,0,0.35),
+      0 0 0 14px rgba(201,162,39,0),
+      0 0 18px rgba(201,162,39,0);
+  }
+}
+/* Hidden tokens (DM hide) */
+.token.isHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Selection box (Ctrl+drag) */
+#marquee {
+  position: absolute;
+  border: 1px solid rgba(201,162,39,0.55);
+  background: rgba(201,162,39,0.12);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.35) inset;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+/* Fullscreen tweaks */
+:fullscreen #mapStage {
+  height: 100vh;
+  min-height: 100vh;
+  border-radius: 0;
+}
+
+/* ---------- Scarlett Isles polish layer (append-only) ---------- */
+body.vtt {
+  /* Accent variables */
+  --scarlett: #7a0f1a;
+  --gold: #c9a227;
+  --ink: rgba(231,231,234,0.92);
+  --muted: rgba(231,231,234,0.70);
+}
+
+/* Subtle vignette + warmth */
+body.vtt::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 500px at 25% 10%, rgba(122, 15, 26, 0.20), transparent 60%),
+    radial-gradient(900px 500px at 75% 10%, rgba(201, 162, 39, 0.12), transparent 60%),
+    radial-gradient(1200px 900px at 50% 70%, rgba(0,0,0,0.55), transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+/* Make header text a bit more premium */
+body.vtt .brandTitle {
+  color: var(--ink);
+  letter-spacing: 0.4px;
+}
+
+body.vtt .muted,
+body.vtt .hint {
+  color: var(--muted);
+}
+
+/* Buttons: keep your base styling, add Scarlett Isles accents */
+body.vtt .btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--ink);
+}
+
+body.vtt .btn:hover {
+  border-color: rgba(255,255,255,0.26);
+  background: rgba(255,255,255,0.08);
+}
+
+body.vtt .btn:focus-visible {
+  outline: 2px solid rgba(201, 162, 39, 0.35);
+  outline-offset: 2px;
+}
+
+/* “Primary” style button pops (used for Hide monsters button etc.) */
+body.vtt .btn:not(.ghost) {
+  border-color: rgba(122, 15, 26, 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(122, 15, 26, 0.28),
+    rgba(122, 15, 26, 0.16)
+  );
+}
+
+body.vtt .btn:not(.ghost):hover {
+  border-color: rgba(122, 15, 26, 0.55);
+  background: linear-gradient(
+    180deg,
+    rgba(122, 15, 26, 0.34),
+    rgba(122, 15, 26, 0.20)
+  );
+}
+
+/* Map frame gets a faint gilded edge */
+#mapStage {
+  box-shadow:
+    0 18px 60px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(201,162,39,0.10);
+}
+
+/* Tokens: make them feel “set in” a bit more */
+.token img {
+  border-color: rgba(201,162,39,0.18);
+}
+
+.token:hover img {
+  border-color: rgba(201,162,39,0.34);
+}
+
+/* Token labels slightly clearer */
+.tokenLabel {
+  color: rgba(231,231,234,0.95);
+  border-color: rgba(255,255,255,0.14);
+}
+
+/* Fullscreen: remove outer panel padding feel */
+#mapStage:fullscreen {
+  border-radius: 0;
+}
+
+#mapStage:fullscreen ~ * {
+  /* harmless, but keeps the rule valid */
+}
+/* Kill browser focus outlines on tokens */
+.token {
+  outline: none;
+}
+
+.token:focus,
+.token:focus-visible {
+  outline: none;
+}
+
+/* Selected token styling (no ugly yellow box) */
+.token.isSelected img {
+  box-shadow:
+    0 0 0 2px rgba(201,162,39,0.8),
+    0 10px 18px rgba(0,0,0,0.35);
+  border-color: rgba(201,162,39,0.6);
+}
+/* Grid overlay canvas */
+#gridCanvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+/* Optional: make grid readout sit nicely */
+#gridReadout {
+  margin-left: 6px;
+}
+#fogCanvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+/* ---------- Measure tool (ruler) ---------- */
+.vttFloatBtn{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50; /* above tokens/fog */
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  user-select: none;
+
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(231,231,234,0.92);
+}
+
+.vttFloatBtn.isOn{
+  border-color: rgba(201,162,39,0.65);
+  box-shadow: 0 0 0 3px rgba(201,162,39,0.18);
+}
+
+.vttMeasureReadout{
+  position: absolute;
+  left: 58px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.65);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(231,231,234,0.92);
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+/* ---------- Fullscreen sidebar ---------- */
+#vttSidebar{
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: none;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(6px);
+}
+
+/* Most reliable for your setup */
+#mapStage:fullscreen #vttSidebar{ display: grid; }
+
+/* Fallback that also works in some browsers */
+:fullscreen #vttSidebar{ display: grid; }
+
+/* WebKit fallback */
+#mapStage:-webkit-full-screen #vttSidebar{ display: grid; }
+
+/* Sidebar button styling */
+.vttSideBtn{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(231,231,234,0.92);
+}
+
+.vttSideBtn.small{
+  width: 44px;
+  height: 38px;
+  border-radius: 12px;
+}
+
+.vttSideRow{
+  display: grid;
+  grid-auto-flow: column;
+  gap: 8px;
+  justify-content: center;
+}
+
+.vttSideDivider{
+  height: 1px;
+  width: 100%;
+  background: rgba(255,255,255,0.12);
+  margin: 2px 0;
+}
+
+.vttSidePad{
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+/* In fullscreen, move the ruler to the right of the sidebar */
+#mapStage:fullscreen .vttFloatBtn{
+  left: 86px; /* 10px + sidebar width-ish */
+}
+#mapStage:fullscreen .vttMeasureReadout{
+  left: 134px; /* keep readout beside the button */
+}
+
+/* Safari/WebKit fallback */
+#mapStage:-webkit-full-screen .vttFloatBtn{
+  left: 86px;
+}
+#mapStage:-webkit-full-screen .vttMeasureReadout{
+  left: 134px;
+}
+
+/* Fullscreen fog slider */
+.fsSlider{
+  width: 100%;
+}
+.fsLabel{
+  font-size: 12px;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+.fsHint{
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 6px;
+}

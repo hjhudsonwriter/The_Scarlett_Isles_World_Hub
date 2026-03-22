@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#7a0f1a" />
+  <title>Scarlett Isles World Hub – Encounter Tracker</title>
+
+    <link rel="stylesheet" href="./encounter.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="brandLogo" src="./assets/logo.png" alt="Scarlett Isles World Hub" onerror="this.style.display='none'" />
+<div class="brandText">
+  <div class="brandTitle">Scarlett Isles World Hub – Encounter Tracker</div>
+</div>
+    </div>
+
+    <div class="topbarActions">
+      <button class="btn ghost" id="btnInstall" hidden>Install</button>
+      <button class="btn ghost" id="btnOpenVtt" title="Open the battlemap in a new window">Battlemap</button>
+      <button class="btn ghost" id="btnMonstersHide">Hide Monsters</button>
+<button class="btn ghost" id="btnMonstersReveal">Reveal Monsters</button>
+      <button class="btn ghost" id="btnResetAll" title="Clears local data (library + encounter)">Reset</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <!-- LEFT: VAULT / STORAGE -->
+    <aside class="panel vault">
+      <div class="panelHead">
+  <h2>Storage</h2>
+  <p>Upload, import, and select combatants.</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-tab="library">Library</button>
+  <button class="tab" data-tab="encounters">Encounters</button>
+  <button class="tab" data-tab="import">Import/Export</button>
+</div>
+
+<div class="tabPanel active" id="tab-library">
+  <div class="sectionTitle">Add Combatant</div>
+
+  <div class="row">
+    <div class="field grow">
+      <label>Name</label>
+      <input id="newName" placeholder="e.g. Dannick Vale" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label>Type</label>
+      <select id="newType">
+        <option value="pc">PC</option>
+        <option value="npc">NPC</option>
+        <option value="monster">Monster</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Max HP</label>
+      <input id="newMaxHp" type="number" min="1" placeholder="45" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field grow">
+      <label>Init Bonus (optional)</label>
+      <input id="newInitBonus" type="number" step="1" placeholder="3" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field grow">
+      <label>Avatar (optional)</label>
+      <input id="newAvatar" placeholder="Image URL (or leave blank)" />
+      <div class="hint">Tip: for best visuals, use square images.</div>
+    </div>
+  </div>
+
+  <div class="row">
+  <div class="field grow">
+    <label>Stat Block Link (optional)</label>
+    <input id="newRefLink" placeholder="Paste D&D Beyond link (or any URL)" />
+    <div class="hint">Tip: This will show an "Open Stat Block" button when that monster is selected.</div>
+  </div>
+</div>
+
+  <div class="row" style="gap:10px">
+  <button class="btn" id="btnAddToLibrary" type="button">Add to Library</button>
+  <button class="btn ghost" id="btnCancelEdit" type="button" hidden>Cancel Edit</button>
+</div>
+
+<div class="row split">
+  <div class="pillRow">
+    <span class="pill" id="countPCs">PCs: 0</span>
+    <span class="pill" id="countMonsters">Monsters: 0</span>
+  </div>
+  <button class="btn ghost" id="btnAddSelected" type="button">Add Selected</button>
+</div>
+
+  <div class="sectionTitle">Saved Combatants</div>
+  <div class="list" id="libraryList"></div>
+</div>
+
+<div class="tabPanel" id="tab-encounters">
+  <div class="sectionTitle">Saved Encounters</div>
+
+  <div class="subcard">
+    <h3>Save current encounter</h3>
+    <p class="muted">Stores the current roster (and initiative values if rolled).</p>
+    <div class="row">
+      <button class="btn" id="btnSaveEncounter">Save Current Encounter</button>
+    </div>
+    <div class="hint">Tip: name your encounter in the center panel first.</div>
+  </div>
+
+  <div class="sectionTitle">Encounter List</div>
+  <div class="list" id="savedEncountersList"></div>
+</div>
+
+<div class="tabPanel" id="tab-import">
+  <div class="sectionTitle">Campaign Files</div>
+
+  <div class="subcard">
+    <h3>Import JSON</h3>
+    <p class="muted">Accepts a campaign file exported from this app.</p>
+    <input type="file" id="importJson" accept=".json,application/json" />
+    <div class="row">
+      <button class="btn" id="btnImportJson">Import Campaign JSON</button>
+    </div>
+  </div>
+
+  <div class="subcard">
+    <h3>Export JSON</h3>
+    <p class="muted">Downloads a campaign file containing your library.</p>
+    <div class="row">
+      <button class="btn" id="btnExportJson">Export Campaign JSON</button>
+    </div>
+  </div>
+
+  <div class="subcard">
+    <h3>Import PDF (basic)</h3>
+    <p class="muted">
+      Extracts text from a PDF and attempts a naive parse (Name + HP). Use JSON for reliability.
+    </p>
+    <input type="file" id="importPdf" accept="application/pdf" />
+    <div class="row">
+      <button class="btn" id="btnImportPdf">Extract & Try Import</button>
+    </div>
+    <div class="hint" id="pdfStatus"></div>
+  </div>
+</div>
+      </aside>
+
+    <!-- CENTER: ENCOUNTER BOARD -->
+    <section class="panel board">
+      <div class="panelHead">
+        <div>
+          <h2>Combatants by Initiative</h2>
+          <p id="encStatus" class="muted"></p>
+        </div>
+        <div class="boardActions">
+          <button class="btn ghost" id="btnClearEncounter">Clear</button>
+        </div>
+      </div>
+
+      <div class="encControls">
+        <div class="field grow">
+          <label>Encounter Name</label>
+          <input id="encName" placeholder="e.g. Underroot Ambush" />
+        </div>
+
+        <div class="controlRow">
+          <button class="btn" id="btnAutoInit">Auto-roll Initiative</button>
+          <button class="btn" id="btnBegin">Begin Encounter</button>
+          <button class="btn ghost" id="btnPause" disabled>Pause</button>
+          <button class="btn danger" id="btnEnd" disabled>End</button>
+        </div>
+      </div>
+
+      <div class="boardTableHead">
+  <div class="col avatar"></div>
+  <div class="col init">Init</div>
+  <div class="col name">Name</div>
+  <div class="col hp">HP</div>
+  <div class="col cond">Conditions</div>
+  <div class="col actions"></div>
+</div>
+
+      <div class="boardList" id="encList"></div>
+
+      <div class="boardFooter">
+        <div class="pill" id="turnPill">Not started</div>
+        <div class="muted tiny">Tap a combatant to target them.</div>
+      </div>
+    </section>
+
+    <!-- RIGHT: INSPECTOR / ACTIONS -->
+    <aside class="panel inspector">
+      <div class="panelHead" id="inspectorHead">
+  <div class="inspectorTop">
+    <img id="inspectorAvatar" class="avatar" alt="" />
+    <div>
+      <h2 id="inspectorName">No active turn</h2>
+      <p class="muted" id="inspectorMeta">Start an encounter to see the active combatant.</p>
+    </div>
+  </div>
+  <div class="inspectorStats" id="inspectorStats" hidden>
+    <div class="pill" id="inspectorHp"></div>
+    <div class="inspectorConds" id="inspectorConds"></div>
+  </div>
+</div>
+
+      <div class="subcard">
+        <div class="field">
+          <label>Target</label>
+          <select id="targetSelect"></select>
+        </div>
+
+        <div class="row">
+          <div class="field grow">
+            <a id="btnOpenStatBlock" class="btn ghost" href="#" target="_blank" rel="noopener" hidden>
+  Open Stat Block
+</a>
+            <label>Damage / Healing</label>
+            <input id="damageInput" type="number" step="1" placeholder="12 (or -5 to heal)" />
+            <div class="hint">Positive = damage, negative = healing.</div>
+          </div>
+        </div>
+
+        <div class="row">
+  <div class="field grow">
+    <label>Add Condition</label>
+    <input id="conditionInput" placeholder="e.g. Blinded" />
+  </div>
+
+  <div class="field" style="max-width:120px">
+    <label>Turns</label>
+    <input id="conditionTurns" type="number" min="1" step="1" placeholder="2" />
+  </div>
+
+  <button class="btn ghost" id="btnAddCondition">Add</button>
+</div>
+
+        <div class="row">
+  <button class="btn" id="btnCompleteTurn">Complete Turn</button>
+</div>
+      </div>
+
+    <div class="subcard" id="momentumCard">
+  <h3>Round & Momentum</h3>
+  <div class="muted" id="momentumText">Add combatants to begin tracking.</div>
+</div>
+    </aside>
+  </main>
+
+  <!-- pdf.js (legacy build for reliable global pdfjsLib on GitHub Pages) -->
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.min.js"></script>
+<script>
+  if (window.pdfjsLib) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.worker.min.js";
+  }
+</script>
+
+  <script src="./encounter.js"></script>
+</body>
+</html>

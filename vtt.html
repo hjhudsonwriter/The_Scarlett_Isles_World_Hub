@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#7a0f1a" />
+  <title>Scarlett Isles World Hub – Battlemap</title>
+
+  <link rel="stylesheet" href="./encounter.css" />
+  <link rel="stylesheet" href="./vtt.css" />
+</head>
+<body class="vtt">
+  <header class="topbar">
+    <div class="brand">
+      <img class="brandLogo" src="./assets/logo.png" alt="Scarlett Isles World Hub" onerror="this.style.display='none'" />
+      <div class="brandText">
+        <div class="brandTitle">Scarlett Isles World Hub – Battlemap</div>
+      </div>
+    </div>
+
+    <div class="topbarActions">
+      <a class="btn ghost" href="./encounter.html">Back to Tracker</a>
+    </div>
+  </header>
+
+  <main class="shell" style="display:block">
+    <section class="panel" style="max-width:1200px;margin:20px auto;">
+      <div class="panelHead">
+        <div>
+          <h2>Battlemap (VTT)</h2>
+          <p class="muted" id="vttStatus">Loading encounter…</p>
+        </div>
+      </div>
+
+      <div style="padding:16px">
+
+        <div class="vttControls">
+  <label class="btn">
+    Upload battlemap
+    <input id="mapUpload" type="file" accept="image/*" hidden />
+  </label>
+
+  <button class="btn ghost" id="btnClearMap" type="button">Clear map</button>
+
+  <div class="vttControlGroup">
+    <button class="btn ghost" id="btnZoomOut" type="button">Map −</button>
+    <button class="btn ghost" id="btnZoomIn" type="button">Map +</button>
+    <button class="btn ghost" id="btnZoomReset" type="button">Reset</button>
+  </div>
+
+  <div class="vttControlGroup">
+    <button class="btn ghost" id="btnTokSm" type="button">Token −</button>
+    <button class="btn ghost" id="btnTokLg" type="button">Token +</button>
+  </div>
+
+  <div class="vttControlGroup">
+    <button class="btn ghost" id="btnFullscreen" type="button">Fullscreen</button>
+  </div>
+
+  <div class="vttControlGroup">
+    <button class="btn" id="btnToggleMonsters" type="button">Hide monsters</button>
+    <button class="btn ghost" id="btnGrid" type="button">Grid: Off</button>
+<button class="btn ghost" id="btnSnap" type="button">Snap: Off</button>
+
+    <div class="vttControlGroup">
+  <button class="btn ghost" id="btnFog" type="button">Fog: Off</button>
+  <button class="btn ghost" id="btnFogCover" type="button">Cover all</button>
+  <button class="btn ghost" id="btnFogAll" type="button">Reveal all</button>
+  <button class="btn ghost" id="btnFogReset" type="button">Reset fog</button>
+  <button class="btn ghost" id="btnFogMonsters" type="button">Monsters: Under fog</button>
+      
+  <button class="btn ghost" id="btnAddCone" type="button">Add LOS Cone</button>
+<button class="btn ghost" id="btnRemoveOverlay" type="button" disabled>Remove overlay</button>
+<button class="btn ghost" id="btnClearOverlays" type="button">Clear overlays</button>    
+</div>
+
+<div class="vttControlGroup">
+  <button class="btn ghost" id="btnFogSm" type="button">Range −</button>
+  <button class="btn ghost" id="btnFogLg" type="button">Range +</button>
+  <span class="hint" id="fogReadout">Fog: —</span>
+</div>
+
+<div class="vttControlGroup">
+  <button class="btn ghost" id="btnGridSm" type="button">Grid −</button>
+  <button class="btn ghost" id="btnGridLg" type="button">Grid +</button>
+</div>
+
+<div class="vttControlGroup">
+  <button class="btn ghost" id="btnNudgeL" type="button">◀</button>
+  <button class="btn ghost" id="btnNudgeR" type="button">▶</button>
+  <button class="btn ghost" id="btnNudgeU" type="button">▲</button>
+  <button class="btn ghost" id="btnNudgeD" type="button">▼</button>
+</div>
+
+<span class="hint" id="gridReadout">Grid: —</span>
+    <span class="hint" id="mapHint">Tip: JPG is smaller than PNG.</span>
+  </div>
+</div>
+
+<div id="mapStage">
+  <div id="mapWorld">
+  <img id="mapImage" alt="Battlemap" />
+<canvas id="gridCanvas"></canvas>
+
+<!-- NEW: overlays live here (under fog, above map) -->
+<div id="overlayLayer"></div>
+
+<div id="tokenLayer"></div>
+<div id="marquee" hidden></div>
+    
+</div>
+    <!-- floating ruler (always visible, even not fullscreen) -->
+  <button id="btnMeasure" class="vttFloatBtn" type="button" title="Measure distance (Ruler)">📏</button>
+  <div id="measureReadout" class="vttMeasureReadout" hidden></div>
+  <!-- Fullscreen sidebar (lives INSIDE mapStage so it exists in fullscreen) -->
+<div id="vttSidebar" class="vttSidebar">
+  <button id="fsBtnGrid" class="vttSideBtn" type="button" title="Toggle grid overlay">Grid</button>
+
+  <div class="vttSideRow">
+    <button id="fsBtnGridSm" class="vttSideBtn small" type="button" title="Grid size −">−</button>
+    <button id="fsBtnGridLg" class="vttSideBtn small" type="button" title="Grid size +">+</button>
+  </div>
+
+  <div class="fsGroup">
+  <div class="fsLabel">Fog Range</div>
+  <input id="fsFogRange" class="fsSlider" type="range" min="1" max="30" step="1" value="6" />
+  <div class="fsHint" id="fsFogReadout">Fog: —</div>
+</div>
+
+  <div class="vttSidePad">
+    <button id="fsBtnNudgeU" class="vttSideBtn small" type="button">▲</button>
+    <div class="vttSideRow">
+      <button id="fsBtnNudgeL" class="vttSideBtn small" type="button">◀</button>
+      <button id="fsBtnNudgeR" class="vttSideBtn small" type="button">▶</button>
+    </div>
+    <button id="fsBtnNudgeD" class="vttSideBtn small" type="button">▼</button>
+  </div>
+
+</div>
+</div>
+        
+      </div>
+    </section>
+  </main>
+
+  <script src="./vtt.js"></script>
+</body>
+</html>

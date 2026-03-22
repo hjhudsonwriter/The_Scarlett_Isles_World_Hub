@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Scarlett Isles World Hub – Bastion Manager</title>
+  <link rel="stylesheet" href="bastion.css?v=1" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand__title">THE SCARLETT ISLES WORLD HUB • BASTION MANAGER</div>
+      <div class="brand__sub">Scarlett Isles • Generic Bastion Turn Tools</div>
+    </div>
+
+    <div class="topbar__controls">
+      <label class="field">
+        <span>Party Level</span>
+        <select id="levelSelect"></select>
+      </label>
+
+      <button id="compendiumBtn" class="btn">Compendium</button>
+      <button id="rollEventBtn" class="btn">Roll Bastion Event</button>
+      <button id="advanceTurnBtn" class="btn btn--primary">Advance Bastion Turn (+7 days)</button>
+      <button id="resetBtn" class="btn btn--ghost" title="This only resets the app state (not your GitHub repo).">Reset</button>
+
+      <button id="downloadSaveBtn" class="btn">Download Save (JSON)</button>
+      <button id="importSaveBtn" class="btn">Import Save (JSON)</button>
+      <input id="importFileInput" type="file" accept="application/json" style="display:none" />
+
+    </div>
+  </header>
+
+    <!-- Fixed left-side tracker (Favour of The Gods) -->
+  <aside id="favourPanel" class="favourPanel" aria-label="Favour of The Gods">
+    <div class="favourTitle">Favour of The Gods</div>
+    <div class="favourRow">
+      <div class="favourName">
+  <svg class="godIconSvg godIcon--telluria" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2C7 4 5 9 5 13c0 5 3 9 7 9s7-4 7-9c0-4-2-9-7-11zM12 6v12"/>
+  </svg>
+  Telluria
+</div>
+      <div class="favourBar"><div class="favourFill" id="favourFill_telluria"></div></div>
+      <div class="favourPct" id="favourPct_telluria">0%</div>
+      <button class="btn btn--small btn--ghost favourClaim" id="favourClaim_telluria" type="button" hidden>Claim</button>
+    </div>
+
+    <div class="favourRow">
+<div class="favourName">
+  <svg class="godIconSvg godIcon--aurush" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2C9 6 7 8 7 12a5 5 0 0010 0c0-4-2-6-5-10z"/>
+  </svg>
+  Aurush
+</div>
+      <div class="favourBar"><div class="favourFill" id="favourFill_aurush"></div></div>
+      <div class="favourPct" id="favourPct_aurush">0%</div>
+      <button class="btn btn--small btn--ghost favourClaim" id="favourClaim_aurush" type="button" hidden>Claim</button>
+    </div>
+
+    <div class="favourRow">
+<div class="favourName">
+  <svg class="godIconSvg godIcon--pelagos" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 14c3-4 6-4 9 0s6 4 9 0"/>
+  </svg>
+  Pelagos
+</div>
+      <div class="favourBar"><div class="favourFill" id="favourFill_pelagos"></div></div>
+      <div class="favourPct" id="favourPct_pelagos">0%</div>
+      <button class="btn btn--small btn--ghost favourClaim" id="favourClaim_pelagos" type="button" hidden>Claim</button>
+    </div>
+
+    <div class="small muted favourHint">Shrine blessings add 1d20% to their god.</div>
+        <!-- Political Capital (Clans) -->
+    <div class="pcTitle" style="margin-top:14px">Political Capital</div>
+
+    <div class="pcRow">
+      <div class="pcName">Blackstone</div>
+      <div class="pcBar"><div class="pcFill" id="pcFill_blackstone"></div></div>
+      <div class="pcVal" id="pcVal_blackstone">0</div>
+      <button class="btn btn--small btn--ghost pcClaim" id="pcClaim_blackstone" type="button" hidden>Honour Change</button>
+    </div>
+
+    <div class="pcRow">
+      <div class="pcName">Bacca</div>
+      <div class="pcBar"><div class="pcFill" id="pcFill_bacca"></div></div>
+      <div class="pcVal" id="pcVal_bacca">0</div>
+      <button class="btn btn--small btn--ghost pcClaim" id="pcClaim_bacca" type="button" hidden>Honour Change</button>
+    </div>
+
+    <div class="pcRow">
+      <div class="pcName">Farmer</div>
+      <div class="pcBar"><div class="pcFill" id="pcFill_farmer"></div></div>
+      <div class="pcVal" id="pcVal_farmer">0</div>
+      <button class="btn btn--small btn--ghost pcClaim" id="pcClaim_farmer" type="button" hidden>Honour Change</button>
+    </div>
+
+    <div class="pcRow">
+      <div class="pcName">Slade</div>
+      <div class="pcBar"><div class="pcFill" id="pcFill_slade"></div></div>
+      <div class="pcVal" id="pcVal_slade">0</div>
+      <button class="btn btn--small btn--ghost pcClaim" id="pcClaim_slade" type="button" hidden>Honour Change</button>
+    </div>
+
+    <div class="pcRow">
+      <div class="pcName">Molten</div>
+      <div class="pcBar"><div class="pcFill" id="pcFill_molten"></div></div>
+      <div class="pcVal" id="pcVal_molten">0</div>
+      <button class="btn btn--small btn--ghost pcClaim" id="pcClaim_molten" type="button" hidden>Honour Change</button>
+    </div>
+
+    <div class="pcRow">
+      <div class="pcName">Rowthorn</div>
+      <div class="pcBar"><div class="pcFill" id="pcFill_rowthorn"></div></div>
+      <div class="pcVal" id="pcVal_rowthorn">0</div>
+      <button class="btn btn--small btn--ghost pcClaim" id="pcClaim_rowthorn" type="button" hidden>Honour Change</button>
+    </div>
+
+    <div class="pcRow">
+      <div class="pcName">Karr</div>
+      <div class="pcBar"><div class="pcFill" id="pcFill_karr"></div></div>
+      <div class="pcVal" id="pcVal_karr">0</div>
+      <button class="btn btn--small btn--ghost pcClaim" id="pcClaim_karr" type="button" hidden>Honour Change</button>
+    </div>
+
+    <div class="small muted pcHint">Starts neutral. Diplomacy outcomes raise/lower clan capital. When it hits ±100, click “Honour Change” and the bar resets to neutral.</div>
+        <!-- Diplomatic Assets -->
+    <div class="pcTitle" style="margin-top:14px">Diplomatic Assets</div>
+
+    <div class="daRow">
+      <div class="daName">Favour Tokens</div>
+      <div class="daDesc small muted">Earned from strong delegations. Spend later to influence negotiations.</div>
+      <div class="daPill" id="daTokensPill">0</div>
+    </div>
+  </aside>
+
+  <!-- Tooltip for Artisan Tools hover -->
+  <div id="artisanTooltip" class="artisanTooltip" hidden></div>
+  <div id="facilityTooltip" class="artisanTooltip" hidden></div>
+  <div id="hallTooltip" class="tooltip" hidden></div>
+
+  <main class="layout">
+
+    <!-- LEFT (Pink): Turn Log -->
+    <section class="leftCol">
+      <section class="card card--tall">
+        <div class="cardHeader">
+          <h2>Turn Log</h2>
+          <button class="btn btn--small" id="clearLogBtn">Clear log</button>
+        </div>
+        <div class="log log--tall" id="logList"></div>
+      </section>
+    </section>
+
+    <!-- CENTER: Map ONLY -->
+    <section class="mainCol">
+      <!-- Red: Map -->
+      <section class="mapCard">
+        <div class="cardHeader">
+          <h2>Bastion Map</h2>
+          <div class="pill" id="turnPill">Turn 1</div>
+        </div>
+        <div class="bastionMapWrap">
+  <img id="bastionMapImg" class="mapImg" src="assets/bastion_artwork.png" onerror="this.style.opacity=0.15;this.alt='Bastion artwork placeholder'" alt="Bastion Map" />
+  <div id="bastionMapOverlays" class="bastionMapOverlays"></div>
+</div>
+        <div class="mapHint">
+          Tip: This tool saves automatically in your browser (local storage). Each player can have their own copy.
+        </div>
+      </section>
+    </section>
+
+    <!-- RIGHT (Purple): Bastion Events -->
+    <section class="rightCol">
+      <section class="card card--tall">
+        <div class="cardHeader">
+          <h2>Bastion Event</h2>
+        </div>
+        <div class="eventBox muted" id="eventBox">
+          Click <b>Roll Bastion Event</b> to generate a 1d100 event.
+        </div>
+      </section>
+    </section>
+
+   <!-- FULL-WIDTH: Party Identity + Clan Influence -->
+<section class="fullRow">
+  <!-- FULL-WIDTH: Party Identity + Clan Influence -->
+<section class="fullRow">
+  <section class="card" id="identityInfluenceCard">
+    <div class="cardHeader">
+      <h2>Party Identity & Clan Influence</h2>
+    </div>
+
+    <div class="cardBody">
+
+      <!-- Party Identity -->
+      <div class="row row--stack">
+        <div class="rowTop">
+          <div>
+            <div class="label">Party Identity</div>
+            <div class="small muted" id="orgDesc">
+              You are currently unsworn. Swear a banner when you meet the requirements.
+            </div>
+          </div>
+          <div class="pill" id="orgStatusPill">Unsworn</div>
+        </div>
+
+        <div class="actions" style="margin-top:10px">
+          <button class="btn btn--small btn--primary" id="btnFormClan">Form Clan</button>
+          <button class="btn btn--small" id="btnFormMerc">Form Mercenary Brigade</button>
+          <button class="btn btn--small btn--ghost" id="btnResetIdentity" style="display:none">Reset Identity</button>
+        </div>
+
+        <div class="small muted" id="orgReqHint" style="margin-top:10px"></div>
+      </div>
+
+      <!-- Clan Influence Trackers -->
+      <div class="row row--stack">
+        <div class="rowTop">
+          <div>
+            <div class="label">Clan Influence Trackers</div>
+            <div class="small muted">
+              Honour/Respect is DM-editable (-5 to +5). Support is derived from Political Capital + Honour/Respect.
+            </div>
+          </div>
+        </div>
+
+        <div class="warCouncilGrid" id="orgClanGrid"></div>
+
+        <div class="warCouncilSplit">
+          <div class="warCouncilBox" id="clanHonorBox" style="display:none">
+            <div class="label">Clan Honour (0–100)</div>
+            <div class="small muted">Only applies if you’ve formed a Clan.</div>
+            <label class="field" style="margin-top:10px">
+              <input id="clanHonorInput" type="number" min="0" max="100" step="1" />
+            </label>
+          </div>
+
+          <div class="warCouncilBox" id="trustedClientsBox" style="display:none">
+            <div class="label">Trusted Clients (0–100)</div>
+            <div class="small muted">Only applies if you’ve formed a Mercenary Brigade.</div>
+            <div class="warCouncilGrid" id="trustedClientsGrid"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</section>
+
+    <!-- FULL-WIDTH: Management (now spans ALL columns) -->
+    <section class="fullRow">
+      <section class="card">
+        <div class="cardHeader">
+          <h2>Management</h2>
+        </div>
+
+        <div class="mgmtGrid">
+
+          <!-- LEFT (Yellow): Defenders -->
+          <div class="mgmtCol">
+            <div class="mgmtBox">
+              <div class="rowTop">
+                <div>
+                  <div class="label">Bastion Defenders</div>
+                  <div class="small muted" id="defendersMeta">Unarmed</div>
+                </div>
+                <div class="actions">
+                  <button class="btn btn--small" id="addDefBtn">+1 Defender</button>
+                  <button class="btn btn--small" id="subDefBtn">-1</button>
+                </div>
+              </div>
+
+              <div class="value" id="defendersValue">0</div>
+
+              <div class="label" style="margin-top:10px">Menagerie Beasts</div>
+              <div class="list" id="defenderRoster"></div>
+            </div>
+          </div>
+
+          <!-- MIDDLE (Green): Treasury -->
+          <div class="mgmtCol">
+            <div class="mgmtBox">
+              <div class="label">Treasury (gp)</div>
+              <div class="small muted">Shared Bastion funds</div>
+
+              <div style="margin-top:10px">
+                <label class="field" style="margin:0">
+                  <input id="treasuryInput" type="number" min="0" step="1" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT (Blue): Military -->
+          <div class="mgmtCol">
+            <div class="mgmtBox">
+              <div class="rowTop">
+                <div>
+                  <div class="label">Military</div>
+                  <div class="small muted">Units recruited from the War Room.</div>
+                </div>
+                <div class="actions">
+                  <button class="btn btn--small" id="clearMilitaryBtn">Clear</button>
+                </div>
+              </div>
+
+              <div class="list" id="militaryList"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </section>
+
+   
+        <!-- FULL-WIDTH: Banner & War Council -->
+<section class="fullRow">
+  <section class="card" id="warCouncilCard">
+    <div class="cardHeader">
+      <h2>Banner &amp; War Council</h2>
+    </div>
+
+    <div class="stack warCouncilWrap">
+
+      <!-- War Turn -->
+      <div class="row row--stack">
+        <div class="rowTop">
+          <div>
+            <div class="label">War Turn</div>
+            <div class="small muted">
+              Queue a war action. It resolves on the next Bastion Turn.
+            </div>
+          </div>
+        </div>
+
+        <div class="warPlanGrid">
+          <label class="field">
+            <span>Target Clan</span>
+            <select id="warTargetSelect"></select>
+          </label>
+
+          <label class="field">
+            <span>Objective</span>
+            <select id="warObjectiveSelect">
+              <option value="raid">Raid</option>
+              <option value="skirmish">Skirmish</option>
+              <option value="defend">Defend Bastion</option>
+              <option value="seize_outpost">Seize Outpost (placeholder)</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Defenders Committed</span>
+            <input id="warDefendersInput" type="number" min="0" step="1" />
+          </label>
+
+          <label class="field">
+            <span>Beasts Committed</span>
+            <input id="warBeastsInput" type="number" min="0" step="1" />
+          </label>
+
+          <label class="field">
+            <span>Lieutenants Committed</span>
+            <input id="warLieutenantsInput" type="number" min="0" step="1" />
+          </label>
+
+          <label class="field">
+            <span>Regiments Committed</span>
+            <input id="warRegimentsInput" type="number" min="0" step="1" />
+          </label>
+        </div>
+
+        <div class="actions" style="margin-top:10px">
+          <button class="btn btn--primary" id="btnQueueWarAction">Queue War Action</button>
+        </div>
+
+        <div class="small muted" id="warClampHint" style="margin-top:10px"></div>
+
+        <div class="warLog" style="margin-top:12px">
+          <div class="label">War Log</div>
+          <div class="small muted">Newest first. Click an entry for details.</div>
+          <div class="list" id="warLogList" style="margin-top:10px"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</section>
+
+    <!-- FULL-WIDTH: Warehouse + Artisan Tools row (moved ABOVE Facilities) -->
+    <section class="fullRow">
+      <div class="whRow2">
+
+        <!-- Green: Warehouse -->
+        <section class="card">
+          <div class="cardHeader">
+            <h2>Warehouse</h2>
+          </div>
+
+          <div class="warehouseSub">
+            <div class="small muted">DM editable. Function outputs append here automatically when completed.</div>
+          </div>
+
+          <div class="warehouseWrap">
+            <div class="warehouseHead">
+              <div class="whCol">Item</div>
+              <div class="whCol whCol--qty">Qty</div>
+              <div class="whCol whCol--gp">GP</div>
+              <div class="whCol">Notes</div>
+              <div class="whCol whCol--act">Action</div>
+            </div>
+
+            <div class="warehouseBody" id="whTableBody">
+              <!-- rows injected by JS -->
+            </div>
+
+            <div class="warehouseActions">
+              <button class="btn btn--primary" id="addWarehouseRowBtn">Add Item</button>
+              <button class="btn" id="saveWarehouseBtn">Save Warehouse</button>
+              <button class="btn btn--small" id="clearWarehouseBtn">Clear</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Red: Artisan Tools -->
+        <section class="card">
+          <div class="cardHeader">
+            <h2>Artisan Tools</h2>
+          </div>
+
+          <div class="stack" style="padding-top:12px">
+            <div class="small muted">Select up to 6 tool/supply sets. Workshop Craft will use these.</div>
+
+            <div class="toolGrid" id="artisanToolGrid"></div>
+
+            <div class="actions" style="justify-content:flex-start">
+              <button class="btn" id="saveArtisanToolsBtn">Save</button>
+              <button class="btn btn--small" id="clearArtisanToolsBtn">Clear</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- FULL-WIDTH: Facilities (now spans ALL columns) -->
+<section class="fullRow">
+  <section class="card" id="facilitiesCard">
+    <div class="cardHeader">
+      <h2>Facilities</h2>
+    </div>
+
+    <div class="cardBody">
+
+      <div class="facBuild">
+        <div class="facBuildTop facBuildTop--split">
+          <div class="facBuildLeft">
+            <div class="label">Construction Slots</div>
+            <div class="small muted" id="slotMeta">—</div>
+          </div>
+
+          <div class="facBuildRight">
+            <div class="small muted">
+              Facilities unlock at levels 5 / 9 / 13 / 17. Locked facilities stay visible but disabled.
+            </div>
+            <div class="actions">
+              <button class="btn btn--small" id="clearBuildBtn">Clear extra builds</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="facBuildGrid">
+          <div>
+            <div id="slotList" class="slotList"></div>
+          </div>
+
+          <div class="pendingWrap pendingWrap--inline">
+            <div class="label">Pending Orders</div>
+            <div class="small muted">Orders complete when you click <b>Take Bastion Turn</b>.</div>
+            <div class="list" id="pendingList"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="facCarouselWrap">
+        <button class="carouselNav carouselNav--left" id="facPrevBtn" type="button" aria-label="Previous facilities">‹</button>
+
+        <div class="facCarousel" id="facilitiesGrid" tabindex="0" aria-label="Facilities"></div>
+
+        <button class="carouselNav carouselNav--right" id="facNextBtn" type="button" aria-label="Next facilities">›</button>
+      </div>
+
+    </div>
+  </section>
+</section>
+
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="small muted">Built for D&D Beyond campaigns. Data comes from your spreadsheet and is editable.</div>
+  </footer>
+
+  <script src="./bastion.js" defer></script>
+</body>
+</html>
