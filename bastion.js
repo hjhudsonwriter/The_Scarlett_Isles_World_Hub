@@ -58,6 +58,9 @@
     downloadSaveBtn: $("downloadSaveBtn"),
     importSaveBtn: $("importSaveBtn"),
     importFileInput: $("importFileInput"),
+    bastionMapImg: $("bastionMapImg"),
+    bastionMapUpload: $("bastionMapUpload"),
+    clearBastionMapBtn: $("clearBastionMapBtn"),
     turnPill: $("turnPill"),
 
     defendersValue: $("defendersValue"),
@@ -113,6 +116,16 @@
     warLogList: $("warLogList"), 
  
   };
+
+  const DEFAULT_BASTION_MAP_SRC = "assets/bastion_artwork.png";
+
+  function applyBastionMapImage(){
+    if(!ui.bastionMapImg) return;
+    const src = String(state?.customMapImage || "").trim() || DEFAULT_BASTION_MAP_SRC;
+    ui.bastionMapImg.src = src;
+    ui.bastionMapImg.alt = "Bastion Map";
+    ui.bastionMapImg.style.opacity = "1";
+  }
    // ================================
 // Collapsible Cards (generic)
 // ================================
@@ -674,6 +687,37 @@ ui.importFileInput?.addEventListener("change", async () => {
     ui.importFileInput.value = "";
   }
 });
+
+ui.bastionMapUpload?.addEventListener("change", async () => {
+  const file = ui.bastionMapUpload.files?.[0];
+  if(!file) return;
+  try{
+    const dataUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result || ""));
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+    state.customMapImage = dataUrl;
+    log("Bastion Map", `Uploaded a custom bastion image: ${file.name}`);
+    saveState();
+    render();
+  }catch(e){
+    console.error(e);
+    alert("Could not read that image file. Open Console (F12) for details.");
+  }finally{
+    ui.bastionMapUpload.value = "";
+  }
+});
+
+ui.clearBastionMapBtn?.addEventListener("click", () => {
+  if(!confirm("Reset the bastion image back to the default artwork?")) return;
+  state.customMapImage = "";
+  log("Bastion Map", "Reset bastion image to the default artwork.");
+  saveState();
+  render();
+});
+
 
      ui.resetBtn.addEventListener("click", () => {
       if(!confirm("Reset app state? This clears your local saved data on THIS browser only.")) return;
@@ -1310,6 +1354,7 @@ if(fac.id === "hall_of_emissaries" && fn.special && fn.special.type === "upgrade
 
     renderEventBox();
     renderFacilities();
+    applyBastionMapImage();
     renderBastionMapOverlays();
     renderLog();
     renderIdentityPanel();
@@ -4760,6 +4805,7 @@ saveState(); render(); return;
   const DEFAULT_STATE = {
     treasuryGP: 0,
     partyLevel: 7,
+    customMapImage: "",
 
     // starting built facilities (your requested 5)
     builtFacilities: ["barracks","armoury","watchtower","workshop","dock"],
@@ -4859,6 +4905,7 @@ saveState(); render(); return;
       ...DEFAULT_STATE,
       treasuryGP: clampInt(s.treasuryGP ?? DEFAULT_STATE.treasuryGP, 0),
       partyLevel: clampInt(s.partyLevel ?? DEFAULT_STATE.partyLevel, 1, 20),
+      customMapImage: typeof s.customMapImage === "string" ? s.customMapImage : DEFAULT_STATE.customMapImage,
 
       builtFacilities: Array.isArray(s.builtFacilities) ? s.builtFacilities : DEFAULT_STATE.builtFacilities,
       builtExtras: Array.isArray(s.builtExtras) ? s.builtExtras : DEFAULT_STATE.builtExtras,
