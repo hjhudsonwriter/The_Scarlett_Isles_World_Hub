@@ -517,13 +517,23 @@ function explorerDefaultState() {
     },
 
 
-    fog: {
+       fog: {
   enabled: false,
   // revealedByMapKey: { [mapKey]: { "q,r": true, ... } }
   revealedByMapKey: {}
 },
 
-      tokens
+    campaign: {
+      partyLevel: 1,
+      bastionEnabled: false,
+      bastionName: "",
+      started: false,
+      weeklyPromptDay: 0
+    },
+
+      tokens,
+      tokensByMap: {},
+      submap: null
   };
 }
 
