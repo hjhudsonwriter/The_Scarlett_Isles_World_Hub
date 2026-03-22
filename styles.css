@@ -968,3 +968,12 @@ flex-direction: column;
   .hubOverlay_card{ margin:2vh 10px; max-width:none; }
   .hubEncounterRow{ grid-template-columns: 1fr; }
 }
+
+
+.hubInfoGroup{ margin:14px 0 0; }
+.hubInfoLabel{ font-family:"IM Fell English SC", serif; letter-spacing:.06em; color:var(--gold2); text-transform:uppercase; font-size:13px; margin-bottom:6px; }
+.hubInfoGroup ul{ margin:0; padding-left:18px; color:rgba(245,242,234,.86); }
+.hubInfoGroup li{ margin:4px 0; }
+.poiMarkerBtn{ display:inline-flex; align-items:center; gap:8px; }
+.poiMarkerBtn_icon{ font-size:16px; line-height:1; }
+.hubModalActions code, .hubInfoGroup code, .hubInlineNote code{ background:rgba(255,255,255,.06); padding:2px 6px; border-radius:8px; }
